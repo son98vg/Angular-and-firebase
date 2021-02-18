@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Angular10FirestoreCrud"
+    }
+  },
+  "defaultProject": "Angular10FirestoreCrud",
+  "cli": {
+    "analytics": "77a9eb69-f647-42a9-904c-aeee9f9683fb"
+  }
 }
