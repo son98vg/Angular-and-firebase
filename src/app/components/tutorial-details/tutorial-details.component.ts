@@ -16,16 +16,17 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
 
   constructor(private tutorialService: TutorialService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.message = '';
   }
 
-  ngOnChanges(): void {
+  ngOnChanges() {
     this.message = '';
     this.currentTutorial = { ...this.tutorial };
   }
 
-  updatePublished(status): void {
+  updatePublished(status){
+
     this.tutorialService.update(this.currentTutorial.id, { published: status })
       .then(() => {
         this.currentTutorial.published = status;
@@ -34,22 +35,23 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
       .catch(err => console.log(err));
   }
 
-  updateTutorial(): void {
+  updateTutorial() {
     const data = {
-      title: this.currentTutorial.title,
-      description: this.currentTutorial.description
+      title:  this.currentTutorial.title,
+      description:  this.currentTutorial.description
     };
 
-    this.tutorialService.update(this.currentTutorial.id, data)
-      .then(() => this.message = 'The tutorial was updated successfully!')
+    this.tutorialService.update(this.currentTutorial.id, data).then(() => this.message = 'Updated successfully!')
       .catch(err => console.log(err));
   }
 
-  deleteTutorial(): void {
-    this.tutorialService.delete(this.currentTutorial.id)
-      .then(() => {
+  deleteTutorial() {
+    console.log(this.currentTutorial.id);
+    this.tutorialService.delete(this.currentTutorial.id).then(() => {
+
         this.refreshList.emit();
-        this.message = 'The tutorial was updated successfully!';
+
+        this.message = 'Updated successfully!';
       })
       .catch(err => console.log(err));
   }

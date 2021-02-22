@@ -14,17 +14,17 @@ export class AddTutorialComponent implements OnInit {
 
   constructor(private tutorialService: TutorialService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
   }
 
-  saveTutorial(): void {
+  saveTutorial() {
     this.tutorialService.create(this.tutorial).then(() => {
-      console.log('Created new item successfully!');
+      console.log('Created successfully!');
       this.submitted = true;
     });
   }
 
-  newTutorial(): void {
+  newTutorial(){
     this.submitted = false;
     this.tutorial = new Tutorial();
   }

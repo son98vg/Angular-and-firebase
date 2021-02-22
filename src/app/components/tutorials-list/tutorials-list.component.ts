@@ -16,30 +16,30 @@ export class TutorialsListComponent implements OnInit {
 
   constructor(private tutorialService: TutorialService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.retrieveTutorials();
   }
 
-  refreshList(): void {
+  refreshList(){
     this.currentTutorial = null;
     this.currentIndex = -1;
     this.retrieveTutorials();
   }
 
-  retrieveTutorials(): void {
-    this.tutorialService.getAll().snapshotChanges().pipe(
-      map(changes =>
+  retrieveTutorials(){
+    this.tutorialService.getAll().snapshotChanges().pipe(map(changes =>
         changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-
+          ({ id: c.payload.doc.id,
+             ...c.payload.doc.data() })
         )
       )
     ).subscribe(data => {
       this.tutorials = data;
+      console.log(data);
     });
   }
 
-  setActiveTutorial(tutorial, index): void {
+  setActiveTutorial(tutorial, index) {
     this.currentTutorial = tutorial;
     this.currentIndex = index;
   }
