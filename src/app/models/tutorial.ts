@@ -3,4 +3,5 @@ export default class Tutorial {
   title: string;
   description: string;
   published = false;
+  
 }

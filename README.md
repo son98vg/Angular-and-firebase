@@ -1,53 +1,66 @@
-# Angular 10 Firestore CRUD App
+# FireBase in Angular🗒️
 
-For more detail, please visit:
-> [Angular 10 Firestore CRUD: add/get/update/delete documents with AngularFireStore](https://bezkoder.com/angular-10-firestore-crud-angularfire/)
+-   Install 
+ ```npm install --save firebase @angular/fire```
+ - add config in enviroment
+ ```
+ export const environment = {
+  production: false,
+  firebaseConfig : {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID"
+  }
+};
+ ```
+ - import app.module.ts
+ ```
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
 
-More Practice:
-> [Angular 10 Firebase CRUD Realtime DB | AngularFireDatabase](https://bezkoder.com/angular-10-firebase-crud/)
+@NgModule({
+        // [...]
+    imports: [
+        // [...]
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireDatabaseModule
+    ],	
+```
+- create id: `this.fireStore.createId()`
+- Insert: `this.fireStore.collection('name_collection').add(data)`
+- Get data in material table
+ ```
+ getInfoFirebase() {
+    this.fireStore.collection('DockerManager').snapshotChanges().subscribe(data =>{      
+      data.forEach(a => {
+       const data = a.payload.doc.data();
+       this.data1.push(data)
+        this.info = this.data1;
+        this.dataSource = new MatTableDataSource<PCDockerInfo>(this.info);
+      this.ngAfterViewInit();
+      })
+    })
+  } 
+ ```
+- Create data
+ ```
+ create(tutorial: Tutorial): any {
+    return this.tutorialsRef.add({ ...tutorial });
+  }
+ ```
+ - update data
+ ```
+ update(id: string, data: any): Promise<void> {
+    return this.tutorialsRef.doc(id).update(data);
+  }
+ ```
 
-> [Angular 10 Firebase Storage: File Upload/Display/Delete example](https://bezkoder.com/firebase-storage-angular-10-file-upload/)
-
-> [Angular 10 CRUD application example with Web API](https://bezkoder.com/angular-10-crud-app/)
-
-Fullstack with Node.js Express:
-> [Angular 10 + Node.js Express + MySQL](https://bezkoder.com/angular-10-node-js-express-mysql/)
-
-> [Angular 10 + Node.js Express + PostgreSQL](https://bezkoder.com/angular-10-node-express-postgresql/)
-
-> [Angular 10 + Node.js Express + MongoDB](https://bezkoder.com/angular-10-mongodb-node-express/)
-
-Fullstack with Spring Boot:
-> [Angular 10 + Spring Boot + MySQL](https://bezkoder.com/angular-10-spring-boot-crud/)
-
-> [Angular 10 + Spring Boot + PostgreSQL](https://bezkoder.com/angular-10-spring-boot-postgresql/)
-
-> [Angular 10 + Spring Boot + MongoDB](https://bezkoder.com/angular-10-spring-boot-mongodb/)
-
-Fullstack with Django:
-
-> [Angular 10 + Django Rest Framework](https://bezkoder.com/django-angular-10-crud-rest-framework/)
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+ - delete
+ ```
+ delete(id: string): Promise<void> {
+    return this.tutorialsRef.doc(id).delete();
+  }

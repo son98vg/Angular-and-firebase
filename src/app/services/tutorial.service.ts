@@ -15,19 +15,15 @@ export class TutorialService {
     this.tutorialsRef = db.collection(this.dbPath);
   }
 
-  getAll(): AngularFirestoreCollection<Tutorial> {
-    return this.tutorialsRef;
+  getAll(): AngularFirestoreCollection<Tutorial> {return this.tutorialsRef;
   }
 
-  create(tutorial: Tutorial): any {
-    return this.tutorialsRef.add({ ...tutorial });
+  create(tutorial: Tutorial): any {return this.tutorialsRef.add({...tutorial});
   }
 
-  update(id: string, data: any): Promise<void> {
-    return this.tutorialsRef.doc(id).update(data);
+  update(id: string, data: any): Promise<void> {return this.tutorialsRef.doc(id).update(data);
   }
 
-  delete(id: string): Promise<void> {
-    return this.tutorialsRef.doc(id).delete();
+  delete(id: string): Promise<void> {return this.tutorialsRef.doc(id).delete();
   }
 }
